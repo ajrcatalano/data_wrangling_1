@@ -49,3 +49,39 @@ select(litters_df, litter_number, everything())
 relocate(litters_df, litter_number)
 ```
 
+## `filter`
+
+Works on rows rather than columns (`select`)
+
+```{r}
+# filtering by gd0_weight < 22
+filter(litters_df, gd0_weight < 22)
+
+# filtering by gd0_weight >= 22
+filter(litters_df, gd0_weight >= 22)
+```
+
+```{r}
+# filtering by gd_of_birth is equal to 20
+filter(litters_df, gd_of_birth == 20)
+```
+
+```{r}
+# filtering by gd_of_birth is not equal to 20
+filter(litters_df, !(gd_of_birth == 20))
+filter(litters_df, gd_of_birth != 20)
+```
+
+```{r}
+# filtering by two conditions
+filter(litters_df, gd0_weight >= 22, gd_of_birth == 20)
+```
+
+```{r}
+filter(litters_df, group == "Con7")
+filter(litters_df, group == "Mod8")
+
+# filtering where group is Con7 or Mod8
+filter(litters_df, group %in% c("Con7", "Mod8"))
+```
+
