@@ -348,3 +348,11 @@ litters_readr
     ## 10 Con8  #3/5/2/2/95             28.5          NA              20
     ## # … with 39 more rows, and 3 more variables: Pups born alive <dbl>,
     ## #   Pups dead @ birth <dbl>, Pups survive <dbl>
+
+## Exporting Data
+
+Exporting the MLB sub-table:
+
+``` r
+write_csv(mlb_df_short, "./data/mlb_subtable.csv")
+```
