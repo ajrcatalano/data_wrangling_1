@@ -97,3 +97,19 @@ mutate(
   group = str_to_lower(group))
 ```
 
+## `arrange`
+
+Might not use this a lot
+
+```{r}
+# arrange by pups_born_alive
+
+arrange(litters_df, pups_born_alive)
+```
+
+```{r}
+# arrange first by pups_born_alive and then gd0_weight
+
+arrange(litters_df, pups_born_alive, gd0_weight)
+```
+
