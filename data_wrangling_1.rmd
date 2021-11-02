@@ -5,6 +5,8 @@ output: github_document
 
 ```{r setup}
 library(tidyverse)
+library(readxl)
+library(haven)
 ```
 
 ## Read in some data
@@ -30,5 +32,35 @@ tail(litters_df)
 
 ```{r}
 skimr::skim(litters_df)
+```
+
+## Options to read csv files
+
+```{r}
+litters_df = read_csv("./data/FAS_litters.csv", skip = 10, col_names = FALSE)
+
+# reading spaces, NA, 999, and, . as NA
+litters_df = read_csv("./data/FAS_litters.csv", na = c("", "NA", 999, "."))
+```
+
+## Other file formats
+
+Reading in an Excel file:
+
+```{r}
+mlb_df = read_excel("./data/mlb11.xlsx")
+
+# reading in only a range of data using "range" option
+mlb_df_short = read_excel("./data/mlb11.xlsx", range = "A1:G31")
+```
+
+Reading in a SAS file:
+
+```{r}
+pulse_df = read_sas("./data/public_pulse_data.sas7bdat")
+
+# using janitor to clean things up a bit
+pulse_df = janitor::clean_names(pulse_df)
+pulse_df
 ```
 

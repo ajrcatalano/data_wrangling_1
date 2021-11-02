@@ -16,6 +16,11 @@ library(tidyverse)
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
+``` r
+library(readxl)
+library(haven)
+```
+
 ## Read in some data
 
 Read in the litters dataset (fetal alcohol study on mice) using a
@@ -129,3 +134,72 @@ Data summary
 | pups_born_alive |         0 |          1.00 |  7.35 | 1.76 |  3.0 |  6.00 |  8.00 |  8.00 | 11.0 | ▁▃▂▇▁ |
 | pups_dead_birth |         0 |          1.00 |  0.33 | 0.75 |  0.0 |  0.00 |  0.00 |  0.00 |  4.0 | ▇▂▁▁▁ |
 | pups_survive    |         0 |          1.00 |  6.41 | 2.05 |  1.0 |  5.00 |  7.00 |  8.00 |  9.0 | ▁▃▂▇▇ |
+
+## Options to read csv files
+
+``` r
+litters_df = read_csv("./data/FAS_litters.csv", skip = 10, col_names = FALSE)
+```
+
+    ## Rows: 40 Columns: 8
+
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): X1, X2
+    ## dbl (6): X3, X4, X5, X6, X7, X8
+
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+# reading spaces, NA, 999, and, . as NA
+litters_df = read_csv("./data/FAS_litters.csv", na = c("", "NA", 999, "."))
+```
+
+    ## Rows: 49 Columns: 8
+
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): Group, Litter Number
+    ## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...
+
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+## Other file formats
+
+Reading in an Excel file:
+
+``` r
+mlb_df = read_excel("./data/mlb11.xlsx")
+
+# reading in only a range of data using "range" option
+mlb_df_short = read_excel("./data/mlb11.xlsx", range = "A1:G31")
+```
+
+Reading in a SAS file:
+
+``` r
+pulse_df = read_sas("./data/public_pulse_data.sas7bdat")
+
+# using janitor to clean things up a bit
+pulse_df = janitor::clean_names(pulse_df)
+pulse_df
+```
+
+    ## # A tibble: 1,087 × 7
+    ##       id   age sex    bdi_score_bl bdi_score_01m bdi_score_06m bdi_score_12m
+    ##    <dbl> <dbl> <chr>         <dbl>         <dbl>         <dbl>         <dbl>
+    ##  1 10003  48.0 male              7             1             2             0
+    ##  2 10015  72.5 male              6            NA            NA            NA
+    ##  3 10022  58.5 male             14             3             8            NA
+    ##  4 10026  72.7 male             20             6            18            16
+    ##  5 10035  60.4 male              4             0             1             2
+    ##  6 10050  84.7 male              2            10            12             8
+    ##  7 10078  31.3 male              4             0            NA            NA
+    ##  8 10088  56.9 male              5            NA             0             2
+    ##  9 10091  76.0 male              0             3             4             0
+    ## 10 10092  74.2 female           10             2            11             6
+    ## # … with 1,077 more rows
