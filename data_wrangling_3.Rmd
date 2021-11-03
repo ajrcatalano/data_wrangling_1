@@ -1,0 +1,11 @@
+---
+title: "Tidy Data"
+author: "AJ Catalano"
+date: "11/3/2021"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+```
+
